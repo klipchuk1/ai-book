@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import type { AgeGroup } from "@/types/catalog";
 
 const AGE_GROUPS: { value: AgeGroup; label: string }[] = [
@@ -17,17 +18,19 @@ export function AgeGroupFilter({ selected, onChange }: AgeGroupFilterProps) {
   return (
     <div className="flex gap-2">
       {AGE_GROUPS.map((group) => (
-        <button
+        <motion.button
           key={group.value}
           onClick={() => onChange(group.value)}
-          className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-200 ${
             selected === group.value
-              ? "bg-primary text-white shadow-md"
-              : "bg-muted text-foreground hover:bg-muted/80"
+              ? "border-2 border-primary bg-primary/10 text-primary-dark shadow-sm"
+              : "border-2 border-transparent bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
           }`}
         >
           {group.label}
-        </button>
+        </motion.button>
       ))}
     </div>
   );
