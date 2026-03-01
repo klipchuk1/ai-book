@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { BookOpen, ArrowDown } from "lucide-react";
+import { BookOpen, ArrowDown, Star } from "lucide-react";
 
 function FloatingBlob({
   color,
@@ -106,15 +106,29 @@ export function HeroSection() {
           </a>
         </motion.div>
 
-        {/* Trust line */}
-        <motion.p
-          className="text-sm font-medium text-muted-foreground"
+        {/* Social proof + trust line */}
+        <motion.div
+          className="flex flex-col items-center gap-3"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.5 }}
         >
-          от 1 690 ₽ &middot; 7-10 глав &middot; PDF за 5 минут
-        </motion.p>
+          <div className="flex items-center gap-4 text-sm font-medium text-muted-foreground">
+            <span className="flex items-center gap-1">
+              <span className="flex">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-3.5 w-3.5 fill-accent text-accent" />
+                ))}
+              </span>
+              4.9/5
+            </span>
+            <span className="h-4 w-px bg-border" />
+            <span>150+ книг создано</span>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            от 1 690 ₽ &middot; 7-10 глав &middot; PDF за 5 минут
+          </p>
+        </motion.div>
       </div>
 
       {/* Wave divider */}

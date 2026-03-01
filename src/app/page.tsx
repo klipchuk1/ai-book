@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { HeroSection } from "@/components/landing/hero-section";
+import { BookPreviewSection } from "@/components/landing/book-preview-section";
 import { HowItWorks } from "@/components/landing/how-it-works";
 import { CatalogSection } from "@/components/landing/catalog-section";
 import { PricingSection } from "@/components/landing/pricing-section";
+import { ReviewsSection } from "@/components/landing/reviews-section";
 import { FAQSection } from "@/components/landing/faq-section";
 import { CTASection } from "@/components/landing/cta-section";
 import { BookOpen } from "lucide-react";
@@ -29,9 +31,11 @@ export default function Home() {
 
       <main>
         <HeroSection />
+        <BookPreviewSection />
         <HowItWorks />
         <CatalogSection />
         <PricingSection />
+        <ReviewsSection />
         <FAQSection />
         <CTASection />
       </main>

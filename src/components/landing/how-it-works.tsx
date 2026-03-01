@@ -1,36 +1,29 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { User, Camera, BookOpen, Download } from "lucide-react";
+import { Camera, BookOpen, Download } from "lucide-react";
 
 const STEPS = [
   {
-    icon: User,
-    title: "Введите данные",
-    description: "Имя, пол и возраст вашего ребёнка",
+    icon: Camera,
+    title: "Загрузите фото и данные",
+    description: "Имя, возраст и 2-3 фотографии лица ребёнка",
     color: "bg-primary/10 text-primary",
     numColor: "text-primary/20",
   },
   {
-    icon: Camera,
-    title: "Загрузите фото",
-    description: "2-3 фотографии лица ребёнка",
+    icon: BookOpen,
+    title: "Выберите книгу",
+    description: "Из каталога по возрасту — с бесплатным превью",
     color: "bg-secondary/10 text-secondary",
     numColor: "text-secondary/20",
   },
   {
-    icon: BookOpen,
-    title: "Выберите книгу",
-    description: "Из каталога книг по возрасту",
-    color: "bg-tertiary/10 text-tertiary",
-    numColor: "text-tertiary/20",
-  },
-  {
     icon: Download,
     title: "Получите PDF",
-    description: "Книга с лицом ребёнка на каждой странице",
-    color: "bg-accent/15 text-accent-dark",
-    numColor: "text-accent/30",
+    description: "Книга с лицом ребёнка на каждой странице за 5 минут",
+    color: "bg-tertiary/10 text-tertiary",
+    numColor: "text-tertiary/20",
   },
 ];
 
@@ -51,16 +44,16 @@ export function HowItWorks() {
             Как это работает
           </h2>
           <p className="mx-auto mb-4 max-w-xl text-muted-foreground">
-            Всего 4 простых шага — и ваш ребёнок станет героем собственной книги
+            Всего 3 простых шага — и ваш ребёнок станет героем собственной книги
           </p>
           <div className="section-divider mb-16" />
         </motion.div>
 
         <div className="relative">
           {/* Connecting dashed line (desktop) */}
-          <div className="absolute top-1/2 left-[calc(12.5%)] right-[calc(12.5%)] hidden border-t-2 border-dashed border-border lg:block" />
+          <div className="absolute top-1/2 left-[calc(16.7%)] right-[calc(16.7%)] hidden border-t-2 border-dashed border-border lg:block" />
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 sm:grid-cols-3">
             {STEPS.map((step, i) => (
               <motion.div
                 key={i}
