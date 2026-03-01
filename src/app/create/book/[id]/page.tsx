@@ -1,20 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useWizard } from "@/components/wizard/wizard-provider";
 import { getBookById } from "@/lib/constants/books";
 import { personalizeText } from "@/lib/utils/text";
 import { Button } from "@/components/ui/button";
-import { CreditCard, BookOpen, ChevronRight, Loader2, ArrowLeft, Download } from "lucide-react";
+import { CreditCard, BookOpen, ChevronRight, Loader2, ArrowLeft, Download, Eye } from "lucide-react";
 import Link from "next/link";
 
 export default function BookDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const bookId = params.id as string;
   const {
     childName, gender, age, photos, sessionId,
-    setSelectedBook, setPaymentId,
+    previewImages, setSelectedBook, setPaymentId,
   } = useWizard();
 
   const [paymentLoading, setPaymentLoading] = useState(false);
@@ -49,6 +50,11 @@ export default function BookDetailPage() {
   const title = personalizeText(book.title, childName, g);
   const description = personalizeText(book.description, childName, g);
 
+  function handlePreview() {
+    setSelectedBook(bookId);
+    router.push("/create/preview");
+  }
+
   async function handlePayment() {
     setPaymentLoading(true);
     setError(null);
@@ -58,11 +64,7 @@ export default function BookDetailPage() {
       const response = await fetch("/api/create-payment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          childName,
-          sessionId,
-          bookId,
-        }),
+        body: JSON.stringify({ childName, sessionId, bookId }),
       });
 
       const result = await response.json();
@@ -71,7 +73,6 @@ export default function BookDetailPage() {
       }
 
       if (result.paymentId) setPaymentId(result.paymentId);
-
       if (result.confirmationUrl) {
         window.location.href = result.confirmationUrl;
       }
@@ -145,10 +146,24 @@ export default function BookDetailPage() {
         Назад к каталогу
       </Link>
 
-      {/* Cover area */}
-      <div className="mb-6 flex h-56 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-50 to-purple-50">
-        <BookOpen className="h-20 w-20 text-primary/30" />
-      </div>
+      {/* Cover area — show preview if available */}
+      {previewImages.length > 0 ? (
+        <div className="mb-6 grid gap-4 sm:grid-cols-2">
+          {previewImages.map((img, i) => (
+            <div key={i} className="overflow-hidden rounded-2xl border border-border/40">
+              <img
+                src={`data:${img.mimeType};base64,${img.base64}`}
+                alt={img.label === "cover" ? "Обложка" : "Иллюстрация"}
+                className="h-auto w-full"
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="mb-6 flex h-56 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/5 via-tertiary/5 to-secondary/5">
+          <BookOpen className="h-20 w-20 text-primary/20" />
+        </div>
+      )}
 
       {/* Book info */}
       <div className="mb-2">
@@ -156,13 +171,13 @@ export default function BookDetailPage() {
           <span className="text-sm font-medium text-primary">{book.subtitle}</span>
         )}
       </div>
-      <h1 className="mb-3 text-2xl font-bold">{title}</h1>
+      <h1 className="mb-3 text-2xl font-extrabold">{title}</h1>
       <p className="mb-6 text-muted-foreground">{description}</p>
 
       {/* Chapter list */}
       <div className="mb-8">
         <h2 className="mb-3 text-lg font-semibold">Содержание</h2>
-        <div className="divide-y divide-border rounded-xl border border-border">
+        <div className="divide-y divide-border/40 rounded-xl border border-border/40">
           {book.chapters.map((chapter, i) => (
             <div key={chapter.id} className="flex items-center px-4 py-3">
               <span className="mr-3 flex h-7 w-7 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
@@ -182,11 +197,26 @@ export default function BookDetailPage() {
         </div>
       )}
 
-      {/* CTA */}
-      <div className="text-center">
+      {/* CTAs */}
+      <div className="flex flex-col items-center gap-3">
+        {/* Preview CTA — primary action */}
+        {previewImages.length === 0 && photos.length > 0 && (
+          <Button
+            variant="gradient"
+            size="lg"
+            className="w-full max-w-sm text-lg"
+            onClick={handlePreview}
+          >
+            <Eye className="h-5 w-5" />
+            Бесплатный превью
+          </Button>
+        )}
+
+        {/* Buy CTA */}
         <Button
           size="lg"
-          className="text-lg"
+          className="w-full max-w-sm text-lg"
+          variant={previewImages.length > 0 ? "gradient" : "primary"}
           disabled={paymentLoading || bookGenerating}
           onClick={handlePayment}
         >
@@ -202,7 +232,8 @@ export default function BookDetailPage() {
             </>
           )}
         </Button>
-        <p className="mt-2 text-sm text-muted-foreground">
+
+        <p className="text-sm text-muted-foreground">
           PDF с {book.chapters.length} главами и персональными иллюстрациями
         </p>
       </div>

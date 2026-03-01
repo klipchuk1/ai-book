@@ -9,7 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import { v4 as uuid } from "uuid";
-import type { WizardState, PhotoFile } from "@/types/wizard";
+import type { WizardState, PhotoFile, PreviewImage } from "@/types/wizard";
 
 interface WizardContextValue extends WizardState {
   setPhotos: (photos: PhotoFile[]) => void;
@@ -17,6 +17,7 @@ interface WizardContextValue extends WizardState {
   setSelectedBook: (bookId: string) => void;
   setOrderId: (id: string) => void;
   setPaymentId: (id: string) => void;
+  setPreviewImages: (images: PreviewImage[]) => void;
   reset: () => void;
 }
 
@@ -45,6 +46,7 @@ function getInitialState(): WizardState {
     sessionId: uuid(),
     orderId: null,
     paymentId: null,
+    previewImages: [],
   };
 }
 
@@ -52,7 +54,7 @@ export function WizardProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<WizardState>(getInitialState);
 
   useEffect(() => {
-    const { photos, ...rest } = state;
+    const { photos, previewImages, ...rest } = state;
     const photoMeta = photos.map((p) => ({
       id: p.id,
       previewUrl: p.previewUrl,
@@ -61,7 +63,7 @@ export function WizardProvider({ children }: { children: ReactNode }) {
     }));
     sessionStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ ...rest, photoMeta })
+      JSON.stringify({ ...rest, photoMeta, previewImages })
     );
   }, [state]);
 
@@ -88,6 +90,10 @@ export function WizardProvider({ children }: { children: ReactNode }) {
     setState((s) => ({ ...s, paymentId }));
   }, []);
 
+  const setPreviewImages = useCallback((previewImages: PreviewImage[]) => {
+    setState((s) => ({ ...s, previewImages }));
+  }, []);
+
   const reset = useCallback(() => {
     sessionStorage.removeItem(STORAGE_KEY);
     setState({
@@ -99,6 +105,7 @@ export function WizardProvider({ children }: { children: ReactNode }) {
       sessionId: uuid(),
       orderId: null,
       paymentId: null,
+      previewImages: [],
     });
   }, []);
 
@@ -111,6 +118,7 @@ export function WizardProvider({ children }: { children: ReactNode }) {
         setSelectedBook,
         setOrderId,
         setPaymentId,
+        setPreviewImages,
         reset,
       }}
     >

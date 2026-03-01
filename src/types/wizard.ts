@@ -7,6 +7,12 @@ export interface PhotoFile {
   uploadedUrl: string | null;
 }
 
+export interface PreviewImage {
+  base64: string;
+  mimeType: string;
+  label: string;
+}
+
 export interface WizardState {
   photos: PhotoFile[];
   childName: string;
@@ -16,6 +22,7 @@ export interface WizardState {
   sessionId: string;
   orderId: string | null;
   paymentId: string | null;
+  previewImages: PreviewImage[];
 }
 
 export const WIZARD_STEPS = [
