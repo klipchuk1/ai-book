@@ -22,7 +22,7 @@ export default function Home() {
             AI <span className="text-primary">Книга</span>
           </span>
         </div>
-        <Link href="/create/photos">
+        <Link href="/create/start">
           <Button size="sm" className="hidden sm:inline-flex">
             Создать книгу
           </Button>

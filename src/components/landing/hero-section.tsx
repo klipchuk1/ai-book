@@ -56,8 +56,8 @@ export function HeroSection() {
           transition={{ ...spring, delay: 0.1 }}
         >
           <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-white/80 px-5 py-2.5 text-sm font-semibold text-foreground backdrop-blur-sm">
-            <span className="text-base">✨</span>
-            Персонализированные книги с AI
+            <span className="text-base">🎬</span>
+            Первая главная роль — без кастинга
           </div>
         </motion.div>
 
@@ -68,9 +68,9 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...spring, delay: 0.3 }}
         >
-          Книги, где герой —{" "}
+          Каждый ребёнок мечтает{" "}
           <span className="bg-gradient-to-r from-primary via-tertiary to-secondary bg-clip-text text-transparent">
-            ваш ребёнок
+            стать героем
           </span>
         </motion.h1>
 
@@ -81,8 +81,9 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...spring, delay: 0.5 }}
         >
-          Выберите книгу из каталога, загрузите фото — и получите
-          персонализированный PDF с лицом вашего ребёнка на каждой странице.
+          Дайте ребёнку первую главную роль — в книге, где он на каждой
+          странице. Загрузите фото, выберите историю — и через 5 минут
+          сказка с его лицом готова.
         </motion.p>
 
         {/* CTAs */}
@@ -92,7 +93,7 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...spring, delay: 0.7 }}
         >
-          <Link href="/create/photos">
+          <Link href="/create/start">
             <Button variant="gradient" size="lg" className="text-lg">
               <BookOpen className="h-5 w-5" />
               Создать книгу
@@ -123,10 +124,10 @@ export function HeroSection() {
               4.9/5
             </span>
             <span className="h-4 w-px bg-border" />
-            <span>150+ книг создано</span>
+            <span>150+ главных ролей</span>
           </div>
           <p className="text-sm text-muted-foreground">
-            от 1 690 ₽ &middot; 7-10 глав &middot; PDF за 5 минут
+            от 1 690 ₽ &middot; тираж: 1 экземпляр &middot; PDF за 5 минут
           </p>
         </motion.div>
       </div>

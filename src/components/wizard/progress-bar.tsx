@@ -5,14 +5,32 @@ import { cn } from "@/lib/utils";
 import { WIZARD_STEPS } from "@/types/wizard";
 import { Check } from "lucide-react";
 
+function getStepIndex(pathname: string): number {
+  // Exact match first
+  const exact = WIZARD_STEPS.findIndex((s) => s.path === pathname);
+  if (exact !== -1) return exact;
+
+  // Sub-page mapping
+  if (pathname.startsWith("/create/book/")) return 1; // catalog step
+  if (pathname === "/create/preview") return 2;
+  if (pathname === "/create/payment-result") return WIZARD_STEPS.length; // all done
+
+  return -1;
+}
+
 export function ProgressBar() {
   const pathname = usePathname();
-  const currentIndex = WIZARD_STEPS.findIndex((s) => s.path === pathname);
+  const currentIndex = getStepIndex(pathname);
+
+  // Hide on payment-result (all steps done)
+  if (currentIndex > WIZARD_STEPS.length - 1) {
+    return null;
+  }
 
   return (
     <div className="flex items-center justify-center gap-2 px-4 py-6 sm:gap-4">
       {WIZARD_STEPS.map((step, i) => {
-        const isCompleted = i < currentIndex;
+        const isCompleted = currentIndex > -1 && i < currentIndex;
         const isCurrent = i === currentIndex;
 
         return (

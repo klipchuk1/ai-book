@@ -6,11 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Check, BookOpen, Clock } from "lucide-react";
 
 const FEATURES = [
-  "7-10 глав в каждой книге",
-  "Лицо ребёнка на каждой иллюстрации",
-  "Персонализированная обложка",
-  "Серии книг — собирайте все части",
-  "PDF в высоком качестве",
+  "7-10 глав — полноценная история",
+  "Ваш ребёнок — герой каждой иллюстрации",
+  "Персонализированная обложка с его лицом",
+  "Тираж: 1 экземпляр — только для вашего ребёнка",
+  "Издательская карточка для соцсетей",
   "Готово за 5 минут",
 ];
 
@@ -28,7 +28,7 @@ export function PricingSection() {
           className="text-center"
         >
           <h2 className="mb-3 text-3xl font-extrabold sm:text-4xl lg:text-5xl">
-            Простая цена — волшебный результат
+            Одна роль — одна цена
           </h2>
           <div className="section-divider mb-12" />
         </motion.div>
@@ -55,7 +55,7 @@ export function PricingSection() {
                 <div className="mb-2 text-5xl font-extrabold text-foreground">
                   1 690 <span className="text-2xl font-normal text-muted-foreground">₽</span>
                 </div>
-                <p className="text-muted-foreground">одна книга</p>
+                <p className="text-muted-foreground">одна главная роль</p>
               </div>
 
               <ul className="mb-8 space-y-4">
@@ -69,10 +69,10 @@ export function PricingSection() {
                 ))}
               </ul>
 
-              <Link href="/create/photos" className="block">
+              <Link href="/create/start" className="block">
                 <Button variant="gradient" size="lg" className="w-full text-lg">
                   <BookOpen className="h-5 w-5" />
-                  Создать книгу
+                  Дать главную роль
                 </Button>
               </Link>
 

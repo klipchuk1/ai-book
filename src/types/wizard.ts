@@ -26,9 +26,9 @@ export interface WizardState {
 }
 
 export const WIZARD_STEPS = [
-  { path: "/create/photos", label: "Фотографии", number: 1 },
-  { path: "/create/details", label: "Данные ребёнка", number: 2 },
-  { path: "/create/catalog", label: "Выбор книги", number: 3 },
+  { path: "/create/start", label: "Фото и данные", number: 1 },
+  { path: "/create/catalog", label: "Выбор книги", number: 2 },
+  { path: "/create/preview", label: "Превью", number: 3 },
 ] as const;
 
 export type WizardStep = (typeof WIZARD_STEPS)[number];

@@ -6,22 +6,22 @@ import { Camera, BookOpen, Download } from "lucide-react";
 const STEPS = [
   {
     icon: Camera,
-    title: "Загрузите фото и данные",
-    description: "Имя, возраст и 2-3 фотографии лица ребёнка",
+    title: "Кастинг за 2 минуты",
+    description: "Имя, возраст и 2-3 фото — всё, что нужно для главной роли",
     color: "bg-primary/10 text-primary",
     numColor: "text-primary/20",
   },
   {
     icon: BookOpen,
-    title: "Выберите книгу",
-    description: "Из каталога по возрасту — с бесплатным превью",
+    title: "Выберите историю",
+    description: "Каталог по возрасту — с бесплатным превью роли",
     color: "bg-secondary/10 text-secondary",
     numColor: "text-secondary/20",
   },
   {
     icon: Download,
-    title: "Получите PDF",
-    description: "Книга с лицом ребёнка на каждой странице за 5 минут",
+    title: "Книга готова",
+    description: "Тираж: 1 экземпляр. Эксклюзивно для вашего ребёнка — за 5 минут",
     color: "bg-tertiary/10 text-tertiary",
     numColor: "text-tertiary/20",
   },
@@ -41,10 +41,10 @@ export function HowItWorks() {
           className="text-center"
         >
           <h2 className="mb-3 text-3xl font-extrabold sm:text-4xl lg:text-5xl">
-            Как это работает
+            Как получить главную роль
           </h2>
           <p className="mx-auto mb-4 max-w-xl text-muted-foreground">
-            Всего 3 простых шага — и ваш ребёнок станет героем собственной книги
+            3 шага — и ваш ребёнок станет героем книги, написанной только для него
           </p>
           <div className="section-divider mb-16" />
         </motion.div>

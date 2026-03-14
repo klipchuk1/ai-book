@@ -58,7 +58,7 @@ export function CatalogSection() {
         )}
 
         <div className="mt-10 text-center">
-          <Link href="/create/photos">
+          <Link href="/create/start">
             <Button variant="primary" size="lg">
               Создать книгу
               <ArrowRight className="h-4 w-4" />

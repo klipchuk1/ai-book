@@ -39,7 +39,7 @@ export default function BookDetailPage() {
     return (
       <div className="flex flex-col items-center py-20">
         <p className="mb-4 text-muted-foreground">Сначала заполните данные ребёнка</p>
-        <Link href="/create/details">
+        <Link href="/create/start">
           <Button>Заполнить данные</Button>
         </Link>
       </div>
