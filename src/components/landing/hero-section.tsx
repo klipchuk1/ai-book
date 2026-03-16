@@ -3,81 +3,136 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { BookOpen, ArrowDown, Star } from "lucide-react";
+import { BookOpen, ArrowDown, Star, Sparkles } from "lucide-react";
 
-function FloatingBlob({
-  color,
-  size,
-  className,
-  delay,
-}: {
-  color: string;
-  size: number;
-  className: string;
-  delay: number;
-}) {
-  return (
-    <motion.div
-      className={`absolute rounded-full blur-3xl opacity-30 ${className}`}
-      style={{ width: size, height: size, background: color }}
-      animate={{
-        x: [0, 30, -20, 0],
-        y: [0, -20, 10, 0],
-        scale: [1, 1.1, 0.95, 1],
-      }}
-      transition={{
-        duration: 12 + delay,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }}
-    />
-  );
-}
+const spring = { type: "spring" as const, stiffness: 80, damping: 14 };
 
-const spring = { type: "spring" as const, stiffness: 100, damping: 12 };
+const sparkles = Array.from({ length: 20 }, (_, i) => ({
+  id: i,
+  x: Math.random() * 100,
+  y: Math.random() * 100,
+  size: Math.random() * 3 + 1,
+  delay: Math.random() * 5,
+  duration: Math.random() * 3 + 3,
+}));
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden px-4 pb-32 pt-24 sm:pt-36 lg:pt-44">
-      {/* Soft pastel gradient background */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#FFF0F0] via-[#F0EEFF] to-[#E8FFF9]" />
+    <section className="relative overflow-hidden px-4 pb-32 pt-24 sm:pt-36 lg:pt-44 min-h-[90vh] flex items-center">
+      {/* Aurora gradient mesh background */}
+      <div className="absolute inset-0 -z-10 bg-[#0a0a1a]">
+        {/* Aurora blobs */}
+        <div
+          className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] rounded-full opacity-20 blur-[120px]"
+          style={{
+            background: "radial-gradient(circle, #ff6b6b 0%, transparent 70%)",
+            animation: "aurora-shift 15s ease-in-out infinite",
+          }}
+        />
+        <div
+          className="absolute top-[20%] left-[-15%] w-[500px] h-[500px] rounded-full opacity-15 blur-[100px]"
+          style={{
+            background: "radial-gradient(circle, #a78bfa 0%, transparent 70%)",
+            animation: "aurora-shift 18s ease-in-out infinite 3s",
+          }}
+        />
+        <div
+          className="absolute bottom-[-10%] right-[20%] w-[450px] h-[450px] rounded-full opacity-15 blur-[100px]"
+          style={{
+            background: "radial-gradient(circle, #4ecdc4 0%, transparent 70%)",
+            animation: "aurora-shift 20s ease-in-out infinite 6s",
+          }}
+        />
+        <div
+          className="absolute bottom-[20%] left-[30%] w-[350px] h-[350px] rounded-full opacity-10 blur-[80px]"
+          style={{
+            background: "radial-gradient(circle, #ffb347 0%, transparent 70%)",
+            animation: "aurora-shift 16s ease-in-out infinite 2s",
+          }}
+        />
 
-      {/* Floating blobs */}
-      <FloatingBlob color="#FF6B6B" size={400} className="top-[-10%] right-[-5%]" delay={0} />
-      <FloatingBlob color="#4ECDC4" size={350} className="bottom-[0%] left-[-8%]" delay={2} />
-      <FloatingBlob color="#A78BFA" size={300} className="top-[20%] left-[50%]" delay={4} />
-      <FloatingBlob color="#FFE66D" size={250} className="bottom-[10%] right-[20%]" delay={1} />
+        {/* Dot pattern overlay */}
+        <div className="absolute inset-0 dot-pattern opacity-40" />
+      </div>
 
-      <div className="relative mx-auto max-w-5xl text-center">
-        {/* Badge */}
+      {/* Sparkle particles */}
+      {sparkles.map((s) => (
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          key={s.id}
+          className="absolute rounded-full bg-white pointer-events-none"
+          style={{
+            left: `${s.x}%`,
+            top: `${s.y}%`,
+            width: s.size,
+            height: s.size,
+          }}
+          animate={{
+            opacity: [0, 1, 0],
+            scale: [0, 1, 0],
+          }}
+          transition={{
+            duration: s.duration,
+            delay: s.delay,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+
+      {/* Floating decorative elements */}
+      <motion.div
+        className="absolute top-[15%] right-[10%] text-primary/20 hidden lg:block"
+        animate={{ y: [0, -20, 0], rotate: [0, 10, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <BookOpen className="h-16 w-16" />
+      </motion.div>
+      <motion.div
+        className="absolute bottom-[25%] left-[8%] text-tertiary/20 hidden lg:block"
+        animate={{ y: [0, -15, 0], rotate: [0, -8, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+      >
+        <Sparkles className="h-12 w-12" />
+      </motion.div>
+      <motion.div
+        className="absolute top-[35%] left-[5%] text-accent/15 hidden lg:block"
+        animate={{ y: [0, -12, 0], rotate: [0, 15, 0] }}
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+      >
+        <Star className="h-10 w-10" />
+      </motion.div>
+
+      <div className="relative mx-auto max-w-5xl text-center w-full">
+        {/* Premium badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 30, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ ...spring, delay: 0.1 }}
         >
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-white/80 px-5 py-2.5 text-sm font-semibold text-foreground backdrop-blur-sm">
-            <span className="text-base">🎬</span>
+          <div className="mb-8 inline-flex items-center gap-2.5 rounded-full glass-strong px-6 py-3 text-sm font-semibold text-white/90">
+            <span className="flex h-2 w-2 rounded-full bg-primary animate-pulse" />
             Первая главная роль — без кастинга
+            <Sparkles className="h-3.5 w-3.5 text-accent" />
           </div>
         </motion.div>
 
         {/* Headline */}
         <motion.h1
-          className="mb-6 text-5xl font-extrabold leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl"
-          initial={{ opacity: 0, y: 20 }}
+          className="mb-6 text-5xl font-extrabold leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl"
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...spring, delay: 0.3 }}
         >
-          Каждый ребёнок мечтает{" "}
-          <span className="bg-gradient-to-r from-primary via-tertiary to-secondary bg-clip-text text-transparent">
+          <span className="text-white">Каждый ребёнок мечтает </span>
+          <span className="gradient-text-animated">
             стать героем
           </span>
         </motion.h1>
 
         {/* Subtitle */}
         <motion.p
-          className="mx-auto mb-12 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl"
-          initial={{ opacity: 0, y: 20 }}
+          className="mx-auto mb-12 max-w-2xl text-lg leading-relaxed text-white/50 sm:text-xl"
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...spring, delay: 0.5 }}
         >
@@ -88,64 +143,63 @@ export function HeroSection() {
 
         {/* CTAs */}
         <motion.div
-          className="mb-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
-          initial={{ opacity: 0, y: 20 }}
+          className="mb-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...spring, delay: 0.7 }}
         >
           <Link href="/create/start">
-            <Button variant="gradient" size="lg" className="text-lg">
+            <button className="group relative inline-flex items-center gap-2.5 rounded-2xl bg-gradient-to-r from-primary via-primary-dark to-primary px-8 py-4 text-lg font-bold text-white shadow-lg shadow-primary/25 transition-all duration-300 hover:shadow-xl hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] cursor-pointer animate-pulse-glow">
               <BookOpen className="h-5 w-5" />
               Создать книгу
-            </Button>
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary via-accent to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-xl" />
+            </button>
           </Link>
           <a href="#how-it-works">
-            <Button variant="outline" size="lg">
+            <button className="inline-flex items-center gap-2 rounded-2xl glass-strong px-7 py-4 text-base font-semibold text-white/80 transition-all duration-300 hover:bg-white/[0.08] hover:text-white cursor-pointer">
               Как это работает
               <ArrowDown className="h-4 w-4" />
-            </Button>
+            </button>
           </a>
         </motion.div>
 
-        {/* Social proof + trust line */}
+        {/* Social proof — glassmorphism badges */}
         <motion.div
-          className="flex flex-col items-center gap-3"
+          className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.5 }}
+          transition={{ delay: 1.0, duration: 0.8 }}
         >
-          <div className="flex items-center gap-4 text-sm font-medium text-muted-foreground">
-            <span className="flex items-center gap-1">
-              <span className="flex">
+          <div className="flex items-center gap-6">
+            {/* Rating */}
+            <div className="flex items-center gap-2 glass rounded-full px-4 py-2">
+              <div className="flex">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="h-3.5 w-3.5 fill-accent text-accent" />
                 ))}
+              </div>
+              <span className="text-sm font-semibold text-white/80">4.9/5</span>
+            </div>
+
+            {/* Counter */}
+            <div className="glass rounded-full px-4 py-2">
+              <span className="text-sm font-semibold text-white/80">
+                150+ главных ролей
               </span>
-              4.9/5
-            </span>
-            <span className="h-4 w-px bg-border" />
-            <span>150+ главных ролей</span>
+            </div>
+
+            {/* Price */}
+            <div className="glass rounded-full px-4 py-2 hidden sm:block">
+              <span className="text-sm font-semibold text-white/80">
+                от 1 690 ₽
+              </span>
+            </div>
           </div>
-          <p className="text-sm text-muted-foreground">
-            от 1 690 ₽ &middot; тираж: 1 экземпляр &middot; PDF за 5 минут
-          </p>
         </motion.div>
       </div>
 
-      {/* Wave divider */}
-      <div className="absolute bottom-0 left-0 w-full">
-        <svg
-          viewBox="0 0 1440 100"
-          fill="none"
-          preserveAspectRatio="none"
-          className="block h-16 w-full sm:h-24"
-        >
-          <path
-            d="M0 40C360 80 720 0 1080 40C1260 60 1380 70 1440 60V100H0V40Z"
-            fill="white"
-          />
-        </svg>
-      </div>
+      {/* Bottom gradient fade */}
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#0a0a1a] to-transparent" />
     </section>
   );
 }

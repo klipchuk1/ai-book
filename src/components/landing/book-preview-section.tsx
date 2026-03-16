@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import Image from "next/image";
 
 const PREVIEW_PAGES = [
@@ -67,8 +67,11 @@ export function BookPreviewSection() {
   };
 
   return (
-    <section className="px-4 py-24 overflow-hidden">
-      <div className="mx-auto max-w-6xl">
+    <section className="px-4 py-24 overflow-hidden relative">
+      {/* Background glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-tertiary/5 blur-[120px] pointer-events-none" />
+
+      <div className="mx-auto max-w-6xl relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -76,37 +79,42 @@ export function BookPreviewSection() {
           transition={spring}
           className="text-center"
         >
-          <h2 className="mb-3 text-3xl font-extrabold sm:text-4xl lg:text-5xl">
-            Как выглядит главная роль
+          <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-semibold text-accent mb-4">
+            <Sparkles className="h-3 w-3" />
+            ПРЕВЬЮ
+          </div>
+          <h2 className="mb-3 text-3xl font-extrabold sm:text-4xl lg:text-5xl text-white">
+            Как выглядит{" "}
+            <span className="gradient-text">главная роль</span>
           </h2>
-          <p className="mx-auto mb-4 max-w-xl text-muted-foreground">
+          <p className="mx-auto mb-4 max-w-xl text-white/50">
             Каждая страница — уникальная сцена, где ваш ребёнок в центре истории
           </p>
           <div className="section-divider mb-12" />
         </motion.div>
 
-        {/* Navigation buttons */}
+        {/* Navigation */}
         <div className="relative">
           <button
             onClick={() => scroll("left")}
-            className="absolute -left-5 top-1/2 z-10 hidden -translate-y-1/2 rounded-full border border-border bg-white/90 p-2.5 shadow-lg transition-all hover:shadow-xl hover:bg-white hover:scale-105 sm:block disabled:opacity-30 disabled:hover:scale-100"
+            className="absolute -left-5 top-1/2 z-10 hidden -translate-y-1/2 rounded-full glass-strong p-3 transition-all hover:bg-white/[0.12] hover:scale-110 sm:block disabled:opacity-20 cursor-pointer"
             disabled={activeIndex === 0}
           >
-            <ChevronLeft className="h-5 w-5 text-foreground" />
+            <ChevronLeft className="h-5 w-5 text-white/70" />
           </button>
           <button
             onClick={() => scroll("right")}
-            className="absolute -right-5 top-1/2 z-10 hidden -translate-y-1/2 rounded-full border border-border bg-white/90 p-2.5 shadow-lg transition-all hover:shadow-xl hover:bg-white hover:scale-105 sm:block disabled:opacity-30 disabled:hover:scale-100"
+            className="absolute -right-5 top-1/2 z-10 hidden -translate-y-1/2 rounded-full glass-strong p-3 transition-all hover:bg-white/[0.12] hover:scale-110 sm:block disabled:opacity-20 cursor-pointer"
             disabled={activeIndex === PREVIEW_PAGES.length - 1}
           >
-            <ChevronRight className="h-5 w-5 text-foreground" />
+            <ChevronRight className="h-5 w-5 text-white/70" />
           </button>
 
-          {/* Scrollable cards */}
+          {/* Cards carousel */}
           <div
             ref={scrollRef}
             onScroll={handleScroll}
-            className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide"
+            className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
             {PREVIEW_PAGES.map((page, i) => (
@@ -118,34 +126,34 @@ export function BookPreviewSection() {
                 transition={{ ...spring, delay: i * 0.1 }}
                 className="w-[280px] shrink-0 snap-center sm:w-[300px]"
               >
-                <div className="group overflow-hidden rounded-2xl border border-border/40 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                <div className="group overflow-hidden rounded-2xl glass-strong transition-all duration-300 hover:border-white/20 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/5">
                   {/* Page image */}
-                  <div className="relative h-[400px] overflow-hidden bg-gradient-to-br from-primary/5 via-secondary/5 to-tertiary/5">
+                  <div className="relative h-[400px] overflow-hidden">
                     <Image
                       src={page.image}
                       alt={page.title}
                       fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                       sizes="300px"
                     />
-                    {/* Subtle overlay gradient at bottom for readability */}
-                    <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/20 to-transparent" />
-                    {/* Page number badge */}
-                    <span className="absolute bottom-3 right-3 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-foreground backdrop-blur-sm shadow-sm">
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a1a] via-transparent to-transparent opacity-60" />
+                    {/* Page number */}
+                    <span className="absolute top-3 left-3 rounded-full glass px-3 py-1 text-xs font-bold text-white/80">
                       {page.id} / {PREVIEW_PAGES.length}
                     </span>
-                  </div>
-                  {/* Caption */}
-                  <div className="p-4">
-                    <h3 className="mb-1 font-bold text-foreground">{page.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{page.description}</p>
+                    {/* Title overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <h3 className="font-bold text-white text-lg mb-1">{page.title}</h3>
+                      <p className="text-sm text-white/60 leading-relaxed">{page.description}</p>
+                    </div>
                   </div>
                 </div>
               </motion.div>
             ))}
           </div>
 
-          {/* Active dot indicators */}
+          {/* Dot indicators */}
           <div className="mt-6 flex justify-center gap-2">
             {PREVIEW_PAGES.map((page, i) => (
               <button
@@ -157,10 +165,10 @@ export function BookPreviewSection() {
                     behavior: "smooth",
                   });
                 }}
-                className={`h-2 rounded-full transition-all duration-300 ${
+                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                   i === activeIndex
-                    ? "w-6 bg-primary"
-                    : "w-2 bg-border hover:bg-muted-foreground/30"
+                    ? "w-8 bg-gradient-to-r from-primary to-tertiary"
+                    : "w-2 bg-white/10 hover:bg-white/20"
                 }`}
               />
             ))}

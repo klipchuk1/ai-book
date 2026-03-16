@@ -33,9 +33,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               variant === "primary",
             "bg-gradient-to-r from-primary via-tertiary to-secondary text-white hover:opacity-90 shadow-lg shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0":
               variant === "gradient",
-            "bg-muted text-foreground hover:bg-border": variant === "secondary",
-            "bg-transparent text-foreground hover:bg-muted": variant === "ghost",
-            "border-2 border-border text-foreground hover:border-primary hover:text-primary hover:bg-primary/5":
+            "bg-white/[0.08] text-white hover:bg-white/[0.12]": variant === "secondary",
+            "bg-transparent text-white/80 hover:bg-white/[0.06]": variant === "ghost",
+            "border-2 border-white/[0.12] text-white/80 hover:border-primary hover:text-primary hover:bg-primary/5":
               variant === "outline",
           },
           {

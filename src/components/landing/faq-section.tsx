@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Sparkles } from "lucide-react";
 
 const FAQ_ITEMS = [
   {
@@ -37,11 +37,20 @@ const FAQ_ITEMS = [
   },
 ];
 
+const ACCENT_COLORS = [
+  "border-primary/30",
+  "border-secondary/30",
+  "border-tertiary/30",
+  "border-accent/30",
+  "border-primary/30",
+  "border-secondary/30",
+];
+
 const CHEVRON_COLORS = [
   "text-primary",
   "text-secondary",
   "text-tertiary",
-  "text-accent-dark",
+  "text-accent",
   "text-primary",
   "text-secondary",
 ];
@@ -60,10 +69,10 @@ function FAQItem({
   index: number;
 }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-border/40 bg-white">
+    <div className={`overflow-hidden rounded-2xl glass-strong transition-all duration-300 ${isOpen ? ACCENT_COLORS[index] : ""}`}>
       <button
         onClick={onToggle}
-        className="flex w-full cursor-pointer items-center justify-between p-5 text-left font-bold text-foreground transition-colors hover:bg-muted/50"
+        className="flex w-full cursor-pointer items-center justify-between p-5 text-left font-bold text-white/90 transition-colors hover:bg-white/[0.03]"
       >
         <span>{question}</span>
         <motion.div
@@ -82,7 +91,7 @@ function FAQItem({
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
           >
-            <p className="px-5 pb-5 leading-relaxed text-muted-foreground">
+            <p className="px-5 pb-5 leading-relaxed text-white/40">
               {answer}
             </p>
           </motion.div>
@@ -98,8 +107,11 @@ export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="px-4 py-24">
-      <div className="mx-auto max-w-3xl">
+    <section className="px-4 py-24 relative">
+      {/* Background glow */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-primary/3 blur-[120px] pointer-events-none" />
+
+      <div className="mx-auto max-w-3xl relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -107,10 +119,15 @@ export function FAQSection() {
           transition={spring}
           className="text-center"
         >
-          <h2 className="mb-3 text-3xl font-extrabold sm:text-4xl lg:text-5xl">
-            Частые вопросы
+          <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-semibold text-accent mb-4">
+            <Sparkles className="h-3 w-3" />
+            FAQ
+          </div>
+          <h2 className="mb-3 text-3xl font-extrabold sm:text-4xl lg:text-5xl text-white">
+            Частые{" "}
+            <span className="gradient-text">вопросы</span>
           </h2>
-          <p className="mx-auto mb-4 max-w-xl text-muted-foreground">
+          <p className="mx-auto mb-4 max-w-xl text-white/50">
             Всё, что нужно знать о создании персонализированных книг
           </p>
           <div className="section-divider mb-12" />
