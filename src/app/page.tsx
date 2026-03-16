@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { HeroSection } from "@/components/landing/hero-section";
 import { BookPreviewSection } from "@/components/landing/book-preview-section";
+import { ReactionsSection } from "@/components/landing/reactions-section";
 import { HowItWorks } from "@/components/landing/how-it-works";
 import { CatalogSection } from "@/components/landing/catalog-section";
 import { PricingSection } from "@/components/landing/pricing-section";
@@ -35,6 +36,7 @@ export default function Home() {
       <main>
         <HeroSection />
         <BookPreviewSection />
+        <ReactionsSection />
         <HowItWorks />
         <CatalogSection />
         <PricingSection />
