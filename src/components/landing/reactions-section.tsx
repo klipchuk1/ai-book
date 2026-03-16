@@ -2,35 +2,42 @@
 
 import { motion } from "framer-motion";
 import { Heart, Sparkles, Star, Quote, Play } from "lucide-react";
+import Image from "next/image";
 
 const REACTIONS = [
   {
-    childName: "Маша, 5 лет",
-    reaction: "Мама, это Я! Я настоящая принцесса!",
-    parentNote: "Дочка прижала книгу к себе и не выпускала весь вечер. Теперь каждый день просит читать «свою» книгу.",
-    parentName: "Анна, мама",
-    emoji: "🤩",
+    image: "/reactions/reaction-2.webp",
+    childName: "Артём, 2 года",
+    reaction: "Пап, это я! Это же я!",
+    parentNote: "Сын увидел себя на страницах и не мог оторваться. Теперь каждый вечер просит «свою книгу».",
+    parentName: "Дмитрий, папа",
     accentColor: "from-primary to-accent",
     glowColor: "rgba(255, 107, 107, 0.08)",
   },
   {
-    childName: "Артём, 7 лет",
-    reaction: "Пап, тут я дракона победил! Смотри!",
-    parentNote: "Сын показывал книгу всем друзьям в школе. Теперь они все хотят свою. Это лучший подарок на день рождения.",
-    parentName: "Дмитрий, папа",
-    emoji: "😲",
+    image: "/reactions/reaction-3.webp",
+    childName: "Анастасия, 5 лет",
+    reaction: "Мама, смотри, я настоящая героиня!",
+    parentNote: "Дочка прижала книгу к себе и не выпускала весь день. Показывала всем гостям. Лучший подарок!",
+    parentName: "Ольга, мама",
     accentColor: "from-secondary to-tertiary",
     glowColor: "rgba(78, 205, 196, 0.08)",
   },
   {
-    childName: "София, 4 года",
+    image: "/reactions/reaction-5.webp",
+    childName: "Миша, 3 года",
     reaction: "Ещё! Ещё читай про меня!",
-    parentNote: "Внучка отложила планшет ради книги. Впервые за полгода! Уже заказали вторую часть.",
-    parentName: "Елена, бабушка",
-    emoji: "🥰",
+    parentNote: "Отложил планшет ради книги — впервые за полгода! Уже заказали вторую часть.",
+    parentName: "Елена, мама",
     accentColor: "from-tertiary to-primary",
     glowColor: "rgba(167, 139, 250, 0.08)",
   },
+];
+
+const GALLERY = [
+  { image: "/reactions/reaction-1.jpg", caption: "Семейное чтение" },
+  { image: "/reactions/reaction-4.webp", caption: "Мама и дочка" },
+  { image: "/reactions/reaction-6.jpg", caption: "Брат и сестра" },
 ];
 
 const STATS = [
@@ -71,8 +78,8 @@ export function ReactionsSection() {
           </p>
         </motion.div>
 
-        {/* Reaction cards */}
-        <div className="grid gap-6 lg:grid-cols-3 mb-16">
+        {/* Main reaction cards with photos */}
+        <div className="grid gap-6 lg:grid-cols-3 mb-12">
           {REACTIONS.map((item, i) => (
             <motion.div
               key={i}
@@ -83,92 +90,115 @@ export function ReactionsSection() {
               whileHover={{ y: -6 }}
               className="group relative"
             >
-              <div className="relative rounded-2xl glass-strong p-6 h-full transition-all duration-300 hover:border-white/15 overflow-hidden">
-                {/* Hover glow */}
-                <div
-                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{ boxShadow: `inset 0 0 80px ${item.glowColor}` }}
-                />
+              <div className="relative rounded-2xl glass-strong overflow-hidden transition-all duration-300 hover:border-white/15">
+                {/* Photo */}
+                <div className="relative h-64 overflow-hidden">
+                  <Image
+                    src={item.image}
+                    alt={item.childName}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a1a] via-[#0a0a1a]/40 to-transparent" />
 
-                {/* Child reaction — the WOW moment */}
-                <div className="relative mb-5">
-                  {/* Emoji + speech bubble */}
-                  <div className="flex items-start gap-3 mb-4">
-                    <motion.div
-                      className="text-4xl shrink-0"
-                      animate={{ scale: [1, 1.15, 1] }}
-                      transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
-                    >
-                      {item.emoji}
-                    </motion.div>
-                    <div className={`relative rounded-2xl rounded-tl-sm bg-gradient-to-r ${item.accentColor} p-[1px]`}>
-                      <div className="rounded-2xl rounded-tl-sm bg-[#0a0a1a] px-4 py-3">
-                        <p className="text-white font-bold text-lg leading-snug">
+                  {/* Child quote overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <div className={`inline-block rounded-xl rounded-bl-sm bg-gradient-to-r ${item.accentColor} p-[1px]`}>
+                      <div className="rounded-xl rounded-bl-sm bg-[#0a0a1a]/90 backdrop-blur-sm px-4 py-2">
+                        <p className="text-white font-bold text-sm sm:text-base">
                           &laquo;{item.reaction}&raquo;
                         </p>
                       </div>
                     </div>
-                  </div>
-
-                  {/* Child name */}
-                  <div className="flex items-center gap-2 ml-14">
-                    <div className={`h-1.5 w-1.5 rounded-full bg-gradient-to-r ${item.accentColor}`} />
-                    <span className="text-sm font-semibold text-white/70">{item.childName}</span>
+                    <div className="flex items-center gap-2 mt-2">
+                      <div className={`h-1.5 w-1.5 rounded-full bg-gradient-to-r ${item.accentColor}`} />
+                      <span className="text-xs font-semibold text-white/70">{item.childName}</span>
+                    </div>
                   </div>
                 </div>
 
-                {/* Divider */}
-                <div className="h-px bg-white/[0.06] mb-4" />
-
                 {/* Parent note */}
-                <div className="relative">
-                  <Quote className="absolute -top-1 -left-1 h-5 w-5 text-white/[0.06]" />
-                  <p className="text-sm text-white/40 leading-relaxed pl-4">
-                    {item.parentNote}
-                  </p>
-                  <p className="mt-2 text-xs text-white/25 pl-4">
-                    — {item.parentName}
-                  </p>
+                <div className="p-5">
+                  <div className="relative">
+                    <Quote className="absolute -top-1 -left-1 h-4 w-4 text-white/[0.06]" />
+                    <p className="text-sm text-white/40 leading-relaxed pl-4">
+                      {item.parentNote}
+                    </p>
+                    <p className="mt-2 text-xs text-white/25 pl-4">
+                      — {item.parentName}
+                    </p>
+                  </div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Video CTA — тизер */}
+        {/* Photo gallery strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ ...spring, delay: 0.2 }}
+          className="mb-12"
+        >
+          <div className="grid grid-cols-3 gap-3">
+            {GALLERY.map((item, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ scale: 1.03 }}
+                className="relative rounded-xl overflow-hidden aspect-[4/3] group cursor-pointer"
+              >
+                <Image
+                  src={item.image}
+                  alt={item.caption}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  sizes="(max-width: 768px) 33vw, 300px"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300" />
+                <div className="absolute bottom-0 left-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <p className="text-xs text-white font-medium">{item.caption}</p>
+                </div>
+                {/* Border glow on hover */}
+                <div className="absolute inset-0 rounded-xl border border-white/0 group-hover:border-white/20 transition-all duration-300" />
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Video CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ ...spring, delay: 0.3 }}
-          className="mb-16"
+          className="mb-12"
         >
           <div className="relative rounded-2xl overflow-hidden glass-strong group cursor-pointer">
             <div className="flex flex-col sm:flex-row items-center gap-6 p-8">
-              {/* Play button area */}
               <div className="relative shrink-0">
                 <motion.div
-                  className="w-20 h-20 rounded-full bg-gradient-to-r from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/30"
+                  className="w-16 h-16 rounded-full bg-gradient-to-r from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/30"
                   animate={{ scale: [1, 1.05, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 >
-                  <Play className="h-8 w-8 text-white ml-1" fill="white" />
+                  <Play className="h-6 w-6 text-white ml-0.5" fill="white" />
                 </motion.div>
-                {/* Pulse ring */}
                 <motion.div
                   className="absolute inset-0 rounded-full border-2 border-primary/30"
                   animate={{ scale: [1, 1.4], opacity: [0.5, 0] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 />
               </div>
-
-              {/* Text */}
               <div>
-                <h3 className="text-xl font-bold text-white mb-2">
-                  Посмотрите, как дети реагируют на свою книгу
+                <h3 className="text-lg font-bold text-white mb-1">
+                  Видео-отзывы от родителей — скоро
                 </h3>
                 <p className="text-white/40 text-sm">
-                  Соберём видео-отзывы от реальных родителей. Скоро здесь появятся ролики с настоящими эмоциями.
+                  Собираем видео с настоящими эмоциями детей. Подпишитесь, чтобы не пропустить.
                 </p>
               </div>
             </div>
