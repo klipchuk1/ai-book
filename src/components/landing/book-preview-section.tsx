@@ -67,7 +67,7 @@ export function BookPreviewSection() {
   };
 
   return (
-    <section className="px-4 py-24 overflow-hidden relative">
+    <section className="px-4 py-16 sm:py-24 overflow-hidden relative">
       {/* Background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-tertiary/5 blur-[120px] pointer-events-none" />
 
@@ -83,7 +83,7 @@ export function BookPreviewSection() {
             <Sparkles className="h-3 w-3" />
             ПРЕВЬЮ
           </div>
-          <h2 className="mb-3 text-3xl font-extrabold sm:text-4xl lg:text-5xl text-white">
+          <h2 className="mb-3 text-2xl font-extrabold sm:text-4xl lg:text-5xl text-white">
             Как выглядит{" "}
             <span className="gradient-text">главная роль</span>
           </h2>

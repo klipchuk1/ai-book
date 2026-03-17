@@ -17,13 +17,13 @@ const spring = { type: "spring" as const, stiffness: 80, damping: 15 };
 
 export function CTASection() {
   return (
-    <section className="px-4 py-24">
+    <section className="px-4 py-16 sm:py-24">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={spring}
-        className="relative mx-auto max-w-5xl overflow-hidden rounded-3xl px-8 py-16 sm:py-20"
+        className="relative mx-auto max-w-5xl overflow-hidden rounded-2xl sm:rounded-3xl px-5 py-12 sm:px-8 sm:py-20"
       >
         {/* Animated gradient background */}
         <div
@@ -90,7 +90,7 @@ export function CTASection() {
         {/* Content */}
         <div className="relative text-center">
           <motion.h2
-            className="mb-5 text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl"
+            className="mb-4 sm:mb-5 text-2xl font-extrabold text-white sm:text-4xl lg:text-5xl"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -99,7 +99,7 @@ export function CTASection() {
             Главная роль ждёт вашего ребёнка
           </motion.h2>
           <motion.p
-            className="mx-auto mb-10 max-w-xl text-lg leading-relaxed text-white/80"
+            className="mx-auto mb-8 sm:mb-10 max-w-xl text-sm sm:text-lg leading-relaxed text-white/80"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

@@ -18,7 +18,7 @@ const sparkles = Array.from({ length: 20 }, (_, i) => ({
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden px-4 pb-32 pt-24 sm:pt-36 lg:pt-44 min-h-[90vh] flex items-center">
+    <section className="relative overflow-hidden px-4 pb-16 pt-20 sm:pb-32 sm:pt-36 lg:pt-44 min-h-[85vh] sm:min-h-[90vh] flex items-center">
       {/* Aurora gradient mesh background */}
       <div className="absolute inset-0 -z-10 bg-[#0a0a1a]">
         {/* Aurora blobs */}
@@ -109,7 +109,7 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ ...spring, delay: 0.1 }}
         >
-          <div className="mb-8 inline-flex items-center gap-2.5 rounded-full glass-strong px-6 py-3 text-sm font-semibold text-white/90">
+          <div className="mb-6 sm:mb-8 inline-flex items-center gap-2 sm:gap-2.5 rounded-full glass-strong px-4 py-2 sm:px-6 sm:py-3 text-xs sm:text-sm font-semibold text-white/90">
             <span className="flex h-2 w-2 rounded-full bg-primary animate-pulse" />
             Первая главная роль — без кастинга
             <Sparkles className="h-3.5 w-3.5 text-accent" />
@@ -118,7 +118,7 @@ export function HeroSection() {
 
         {/* Headline */}
         <motion.h1
-          className="mb-6 text-5xl font-extrabold leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl"
+          className="mb-4 sm:mb-6 text-3xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-7xl"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...spring, delay: 0.3 }}
@@ -131,7 +131,7 @@ export function HeroSection() {
 
         {/* Subtitle */}
         <motion.p
-          className="mx-auto mb-12 max-w-2xl text-lg leading-relaxed text-white/50 sm:text-xl"
+          className="mx-auto mb-8 sm:mb-12 max-w-2xl text-sm sm:text-lg leading-relaxed text-white/50"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...spring, delay: 0.5 }}
@@ -143,20 +143,20 @@ export function HeroSection() {
 
         {/* CTAs */}
         <motion.div
-          className="mb-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
+          className="mb-8 sm:mb-10 flex flex-col items-center gap-3 sm:gap-4 sm:flex-row sm:justify-center"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...spring, delay: 0.7 }}
         >
           <Link href="/create/start">
-            <button className="group relative inline-flex items-center gap-2.5 rounded-2xl bg-gradient-to-r from-primary via-primary-dark to-primary px-8 py-4 text-lg font-bold text-white shadow-lg shadow-primary/25 transition-all duration-300 hover:shadow-xl hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] cursor-pointer animate-pulse-glow">
+            <button className="group relative inline-flex items-center gap-2 sm:gap-2.5 rounded-2xl bg-gradient-to-r from-primary via-primary-dark to-primary px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg font-bold text-white shadow-lg shadow-primary/25 transition-all duration-300 hover:shadow-xl hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] cursor-pointer animate-pulse-glow w-full sm:w-auto justify-center">
               <BookOpen className="h-5 w-5" />
               Создать книгу
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary via-accent to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-xl" />
             </button>
           </Link>
           <a href="#how-it-works">
-            <button className="inline-flex items-center gap-2 rounded-2xl glass-strong px-7 py-4 text-base font-semibold text-white/80 transition-all duration-300 hover:bg-white/[0.08] hover:text-white cursor-pointer">
+            <button className="inline-flex items-center gap-2 rounded-2xl glass-strong px-6 py-3 sm:px-7 sm:py-4 text-sm sm:text-base font-semibold text-white/80 transition-all duration-300 hover:bg-white/[0.08] hover:text-white cursor-pointer w-full sm:w-auto justify-center">
               Как это работает
               <ArrowDown className="h-4 w-4" />
             </button>
@@ -170,28 +170,21 @@ export function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.0, duration: 0.8 }}
         >
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 sm:gap-6 flex-wrap justify-center">
             {/* Rating */}
-            <div className="flex items-center gap-2 glass rounded-full px-4 py-2">
+            <div className="flex items-center gap-1.5 sm:gap-2 glass rounded-full px-3 py-1.5 sm:px-4 sm:py-2">
               <div className="flex">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-3.5 w-3.5 fill-accent text-accent" />
+                  <Star key={i} className="h-3 w-3 sm:h-3.5 sm:w-3.5 fill-accent text-accent" />
                 ))}
               </div>
-              <span className="text-sm font-semibold text-white/80">4.9/5</span>
+              <span className="text-xs sm:text-sm font-semibold text-white/80">4.9/5</span>
             </div>
 
             {/* Counter */}
-            <div className="glass rounded-full px-4 py-2">
-              <span className="text-sm font-semibold text-white/80">
+            <div className="glass rounded-full px-3 py-1.5 sm:px-4 sm:py-2">
+              <span className="text-xs sm:text-sm font-semibold text-white/80">
                 150+ главных ролей
-              </span>
-            </div>
-
-            {/* Price */}
-            <div className="glass rounded-full px-4 py-2 hidden sm:block">
-              <span className="text-sm font-semibold text-white/80">
-                от 1 690 ₽
               </span>
             </div>
           </div>

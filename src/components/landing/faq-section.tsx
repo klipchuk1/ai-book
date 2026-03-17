@@ -107,7 +107,7 @@ export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="px-4 py-24 relative">
+    <section className="px-4 py-16 sm:py-24 relative">
       {/* Background glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-primary/3 blur-[120px] pointer-events-none" />
 
@@ -123,7 +123,7 @@ export function FAQSection() {
             <Sparkles className="h-3 w-3" />
             FAQ
           </div>
-          <h2 className="mb-3 text-3xl font-extrabold sm:text-4xl lg:text-5xl text-white">
+          <h2 className="mb-3 text-2xl font-extrabold sm:text-4xl lg:text-5xl text-white">
             Частые{" "}
             <span className="gradient-text">вопросы</span>
           </h2>

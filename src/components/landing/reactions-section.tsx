@@ -37,7 +37,9 @@ const REACTIONS = [
 const GALLERY = [
   { image: "/reactions/reaction-1.jpg", caption: "Семейное чтение" },
   { image: "/reactions/reaction-4.webp", caption: "Мама и дочка" },
-  { image: "/reactions/reaction-6.jpg", caption: "Брат и сестра" },
+  { image: "/reactions/reaction-6.jpg", caption: "Папа читает детям" },
+  { image: "/reactions/kid3.jpg", caption: "Сёстры читают вместе" },
+  { image: "/reactions/kid5.jpg", caption: "Восторг от книги" },
 ];
 
 const STATS = [
@@ -50,7 +52,7 @@ const spring = { type: "spring" as const, stiffness: 80, damping: 15 };
 
 export function ReactionsSection() {
   return (
-    <section className="px-4 py-28 relative overflow-hidden">
+    <section className="px-4 py-16 sm:py-28 relative overflow-hidden">
       {/* Background effects */}
       <div className="absolute top-0 left-1/3 w-[500px] h-[500px] rounded-full bg-primary/3 blur-[150px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-tertiary/3 blur-[120px] pointer-events-none" />
@@ -62,24 +64,24 @@ export function ReactionsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={spring}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-16"
         >
           <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-semibold text-primary mb-4">
             <Heart className="h-3 w-3 fill-primary" />
             РЕАКЦИИ ДЕТЕЙ
           </div>
-          <h2 className="mb-4 text-3xl font-extrabold sm:text-4xl lg:text-5xl text-white">
+          <h2 className="mb-3 sm:mb-4 text-2xl font-extrabold sm:text-4xl lg:text-5xl text-white">
             Момент, когда ребёнок видит{" "}
             <span className="gradient-text-animated">себя в книге</span>
           </h2>
-          <p className="mx-auto max-w-2xl text-white/50 text-lg">
+          <p className="mx-auto max-w-2xl text-white/50 text-sm sm:text-lg">
             Это не просто книга — это восторг, гордость и бесконечное перечитывание.
             Вот что происходит, когда дети открывают свою историю.
           </p>
         </motion.div>
 
         {/* Main reaction cards with photos */}
-        <div className="grid gap-6 lg:grid-cols-3 mb-12">
+        <div className="grid gap-4 sm:gap-6 lg:grid-cols-3 mb-8 sm:mb-12">
           {REACTIONS.map((item, i) => (
             <motion.div
               key={i}
@@ -92,7 +94,7 @@ export function ReactionsSection() {
             >
               <div className="relative rounded-2xl glass-strong overflow-hidden transition-all duration-300 hover:border-white/15">
                 {/* Photo */}
-                <div className="relative h-64 overflow-hidden">
+                <div className="relative h-48 sm:h-64 overflow-hidden">
                   <Image
                     src={item.image}
                     alt={item.childName}
@@ -144,12 +146,12 @@ export function ReactionsSection() {
           transition={{ ...spring, delay: 0.2 }}
           className="mb-12"
         >
-          <div className="grid grid-cols-3 gap-3">
+          <div className="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory sm:grid sm:grid-cols-5 sm:overflow-visible sm:pb-0" style={{ scrollbarWidth: "none" }}>
             {GALLERY.map((item, i) => (
               <motion.div
                 key={i}
                 whileHover={{ scale: 1.03 }}
-                className="relative rounded-xl overflow-hidden aspect-[4/3] group cursor-pointer"
+                className="relative rounded-xl overflow-hidden aspect-[4/3] group cursor-pointer shrink-0 w-[60%] sm:w-auto snap-center"
               >
                 <Image
                   src={item.image}
@@ -212,7 +214,7 @@ export function ReactionsSection() {
           viewport={{ once: true }}
           transition={{ ...spring, delay: 0.2 }}
         >
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4">
             {STATS.map((stat, i) => (
               <motion.div
                 key={i}
@@ -220,10 +222,10 @@ export function ReactionsSection() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ ...spring, delay: 0.3 + i * 0.1 }}
-                className="text-center glass rounded-2xl p-5"
+                className="text-center glass rounded-2xl p-3 sm:p-5"
               >
-                <stat.icon className="h-5 w-5 text-accent mx-auto mb-2" />
-                <div className="text-2xl sm:text-3xl font-extrabold gradient-text-warm mb-1">
+                <stat.icon className="h-4 w-4 sm:h-5 sm:w-5 text-accent mx-auto mb-1 sm:mb-2" />
+                <div className="text-xl sm:text-3xl font-extrabold gradient-text-warm mb-0.5 sm:mb-1">
                   {stat.value}
                 </div>
                 <div className="text-xs text-white/40">{stat.label}</div>

@@ -95,7 +95,7 @@ function AnimatedCheck({ delay }: { delay: number }) {
 
 export function PricingSection() {
   return (
-    <section className="relative overflow-hidden px-4 py-28 bg-[#0a0a1a]">
+    <section className="relative overflow-hidden px-4 py-16 sm:py-28 bg-[#0a0a1a]">
       {/* Background mesh gradient */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-1/2 h-[800px] w-[1000px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#a78bfa]/[0.03] blur-[150px]" />
@@ -128,13 +128,13 @@ export function PricingSection() {
             Прозрачные цены
           </motion.div>
 
-          <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h2 className="mb-4 text-2xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-6xl">
             Одна роль{" "}
             <span className="bg-gradient-to-r from-[#ff6b6b] via-[#a78bfa] to-[#ffb347] bg-clip-text text-transparent">
               {"\u2014"} одна цена
             </span>
           </h2>
-          <p className="mx-auto mb-14 max-w-xl text-base text-white/40 sm:text-lg">
+          <p className="mx-auto mb-8 sm:mb-14 max-w-xl text-sm text-white/40 sm:text-lg">
             Без подписок, без скрытых платежей. Платите один раз за уникальную книгу
           </p>
         </motion.div>
@@ -194,7 +194,7 @@ export function PricingSection() {
                     viewport={{ once: true }}
                     transition={{ ...spring, delay: 0.3 }}
                   >
-                    <span className="bg-gradient-to-r from-[#ff6b6b] via-[#a78bfa] to-[#ffb347] bg-clip-text text-6xl font-extrabold text-transparent">
+                    <span className="bg-gradient-to-r from-[#ff6b6b] via-[#a78bfa] to-[#ffb347] bg-clip-text text-4xl sm:text-6xl font-extrabold text-transparent">
                       1 690
                     </span>
                     <span className="ml-2 text-2xl font-normal text-white/30">{"\u20bd"}</span>
@@ -293,7 +293,7 @@ export function PricingSection() {
                     viewport={{ once: true }}
                     transition={{ ...spring, delay: 0.45 }}
                   >
-                    <span className="bg-gradient-to-r from-[#ffb347] to-[#a78bfa] bg-clip-text text-6xl font-extrabold text-transparent">
+                    <span className="bg-gradient-to-r from-[#ffb347] to-[#a78bfa] bg-clip-text text-4xl sm:text-6xl font-extrabold text-transparent">
                       4 190
                     </span>
                     <span className="ml-2 text-2xl font-normal text-white/30">{"\u20bd"}</span>

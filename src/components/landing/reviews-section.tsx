@@ -53,7 +53,7 @@ const spring = { type: "spring" as const, stiffness: 80, damping: 15 };
 
 export function ReviewsSection() {
   return (
-    <section className="px-4 py-24 relative">
+    <section className="px-4 py-16 sm:py-24 relative">
       {/* Background */}
       <div className="absolute inset-0 bg-white/[0.02]" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full bg-tertiary/3 blur-[150px] pointer-events-none" />
@@ -70,7 +70,7 @@ export function ReviewsSection() {
             <Sparkles className="h-3 w-3" />
             ОТЗЫВЫ
           </div>
-          <h2 className="mb-3 text-3xl font-extrabold sm:text-4xl lg:text-5xl text-white">
+          <h2 className="mb-3 text-2xl font-extrabold sm:text-4xl lg:text-5xl text-white">
             Что говорят{" "}
             <span className="gradient-text">родители</span>
           </h2>
