@@ -65,11 +65,35 @@
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Safe area insets for notched devices (iPhone X+) */
+@supports (padding: env(safe-area-inset-bottom)) {
+  footer {
+    padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+  }
+  header {
+    padding-top: calc(0.625rem + env(safe-area-inset-top));
+  }
+}
+
+/* Tap highlight removal for mobile */
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Touch-friendly targets: minimum 44px */
+.touch-manipulation {
+  touch-action: manipulation;
 }
 
 /* Custom scrollbar */

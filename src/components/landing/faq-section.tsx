@@ -72,13 +72,14 @@ function FAQItem({
     <div className={`overflow-hidden rounded-2xl glass-strong transition-all duration-300 ${isOpen ? ACCENT_COLORS[index] : ""}`}>
       <button
         onClick={onToggle}
-        className="flex w-full cursor-pointer items-center justify-between p-5 text-left font-bold text-white/90 transition-colors hover:bg-white/[0.03]"
+        className="flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-3.5 sm:p-5 text-left text-[15px] sm:text-base font-bold text-white/90 transition-colors hover:bg-white/[0.03] min-h-[48px]"
+        aria-expanded={isOpen}
       >
-        <span>{question}</span>
+        <span className="leading-snug">{question}</span>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2 }}
-          className={`ml-4 shrink-0 ${CHEVRON_COLORS[index]}`}
+          className={`shrink-0 ${CHEVRON_COLORS[index]}`}
         >
           <ChevronDown className="h-5 w-5" />
         </motion.div>
@@ -91,7 +92,7 @@ function FAQItem({
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
           >
-            <p className="px-5 pb-5 leading-relaxed text-white/40">
+            <p className="px-4 pb-4 sm:px-5 sm:pb-5 text-[14px] sm:text-base leading-relaxed text-white/40">
               {answer}
             </p>
           </motion.div>
@@ -107,9 +108,9 @@ export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="px-4 py-16 sm:py-24 relative">
-      {/* Background glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-primary/3 blur-[120px] pointer-events-none" />
+    <section className="px-4 py-14 sm:py-24 relative">
+      {/* Background glow - smaller on mobile */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[320px] sm:w-[600px] h-[200px] sm:h-[300px] rounded-full bg-primary/3 blur-[80px] sm:blur-[120px] pointer-events-none" />
 
       <div className="mx-auto max-w-3xl relative">
         <motion.div
@@ -123,17 +124,17 @@ export function FAQSection() {
             <Sparkles className="h-3 w-3" />
             FAQ
           </div>
-          <h2 className="mb-3 text-2xl font-extrabold sm:text-4xl lg:text-5xl text-white">
+          <h2 className="mb-3 text-[1.625rem] leading-tight font-extrabold sm:text-4xl lg:text-5xl text-white">
             Частые{" "}
             <span className="gradient-text">вопросы</span>
           </h2>
-          <p className="mx-auto mb-4 max-w-xl text-white/50">
+          <p className="mx-auto mb-4 max-w-xl text-sm sm:text-base text-white/50">
             Всё, что нужно знать о создании персонализированных книг
           </p>
-          <div className="section-divider mb-12" />
+          <div className="section-divider mb-8 sm:mb-12" />
         </motion.div>
 
-        <div className="space-y-3">
+        <div className="space-y-2.5 sm:space-y-3">
           {FAQ_ITEMS.map((item, i) => (
             <motion.div
               key={i}

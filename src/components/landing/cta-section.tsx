@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { BookOpen, Sparkles, Star } from "lucide-react";
 
+// Reduced particle count: 6 on mobile (rendered), 15 total but only first 6 visible on mobile via CSS
 const sparkles = Array.from({ length: 15 }, (_, i) => ({
   id: i,
   x: Math.random() * 100,
@@ -17,13 +18,13 @@ const spring = { type: "spring" as const, stiffness: 80, damping: 15 };
 
 export function CTASection() {
   return (
-    <section className="px-4 py-16 sm:py-24">
+    <section className="px-4 py-14 sm:py-24">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={spring}
-        className="relative mx-auto max-w-5xl overflow-hidden rounded-2xl sm:rounded-3xl px-5 py-12 sm:px-8 sm:py-20"
+        className="relative mx-auto max-w-5xl overflow-hidden rounded-2xl sm:rounded-3xl px-5 py-10 sm:px-8 sm:py-20"
       >
         {/* Animated gradient background */}
         <div
@@ -40,11 +41,11 @@ export function CTASection() {
         {/* Grid pattern */}
         <div className="absolute inset-0 grid-pattern opacity-20" />
 
-        {/* Sparkle particles */}
-        {sparkles.map((s) => (
+        {/* Sparkle particles - only first 6 on mobile for performance */}
+        {sparkles.map((s, index) => (
           <motion.div
             key={s.id}
-            className="absolute rounded-full bg-white pointer-events-none"
+            className={`absolute rounded-full bg-white pointer-events-none ${index >= 6 ? "hidden sm:block" : ""}`}
             style={{
               left: `${s.x}%`,
               top: `${s.y}%`,
@@ -64,23 +65,23 @@ export function CTASection() {
           />
         ))}
 
-        {/* Floating elements */}
+        {/* Floating elements - hidden on mobile for performance */}
         <motion.div
-          className="absolute top-[15%] left-[8%] text-white/15"
+          className="absolute top-[15%] left-[8%] text-white/15 hidden sm:block"
           animate={{ y: [0, -15, 0], rotate: [0, 10, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         >
           <BookOpen className="h-12 w-12" />
         </motion.div>
         <motion.div
-          className="absolute bottom-[15%] right-[10%] text-white/15"
+          className="absolute bottom-[15%] right-[10%] text-white/15 hidden sm:block"
           animate={{ y: [0, -12, 0], rotate: [0, -8, 0] }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         >
           <Star className="h-10 w-10" />
         </motion.div>
         <motion.div
-          className="absolute top-[30%] right-[15%] text-white/10"
+          className="absolute top-[30%] right-[15%] text-white/10 hidden sm:block"
           animate={{ y: [0, -10, 0], rotate: [0, 15, 0] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         >
@@ -90,16 +91,18 @@ export function CTASection() {
         {/* Content */}
         <div className="relative text-center">
           <motion.h2
-            className="mb-4 sm:mb-5 text-2xl font-extrabold text-white sm:text-4xl lg:text-5xl"
+            className="mb-3 sm:mb-5 text-[1.5rem] leading-tight font-extrabold text-white sm:text-4xl lg:text-5xl"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ ...spring, delay: 0.1 }}
           >
-            Главная роль ждёт вашего ребёнка
+            Главная роль ждёт{" "}
+            <br className="sm:hidden" />
+            вашего ребёнка
           </motion.h2>
           <motion.p
-            className="mx-auto mb-8 sm:mb-10 max-w-xl text-sm sm:text-lg leading-relaxed text-white/80"
+            className="mx-auto mb-7 sm:mb-10 max-w-xl text-[13px] sm:text-lg leading-relaxed text-white/80"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -113,9 +116,10 @@ export function CTASection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ ...spring, delay: 0.3 }}
+            className="px-2 sm:px-0"
           >
-            <Link href="/create/start">
-              <button className="group relative inline-flex items-center gap-2.5 rounded-2xl bg-white px-8 py-4 text-lg font-bold text-[#0a0a1a] shadow-2xl shadow-black/20 transition-all duration-300 hover:bg-white/95 hover:scale-[1.03] hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer">
+            <Link href="/create/start" className="block sm:inline-block">
+              <button className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-2xl bg-white px-8 py-4 text-base sm:text-lg font-bold text-[#0a0a1a] shadow-2xl shadow-black/20 transition-all duration-300 hover:bg-white/95 hover:scale-[1.03] hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer min-h-[52px]">
                 <BookOpen className="h-5 w-5" />
                 Дать главную роль
                 <Sparkles className="h-4 w-4 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -125,7 +129,7 @@ export function CTASection() {
 
           {/* Trust line */}
           <motion.p
-            className="mt-6 text-sm text-white/50"
+            className="mt-5 sm:mt-6 text-xs sm:text-sm text-white/50"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}

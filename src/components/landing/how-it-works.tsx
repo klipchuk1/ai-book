@@ -37,10 +37,10 @@ const spring = { type: "spring" as const, stiffness: 80, damping: 15 };
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="px-4 py-16 sm:py-24 relative">
-      {/* Background glow */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-primary/3 blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-secondary/3 blur-[120px] pointer-events-none" />
+    <section id="how-it-works" className="px-4 py-14 sm:py-24 relative overflow-hidden">
+      {/* Background glow - smaller on mobile for performance */}
+      <div className="absolute top-0 left-1/4 w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] rounded-full bg-primary/3 blur-[100px] sm:blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[220px] sm:w-[400px] h-[220px] sm:h-[400px] rounded-full bg-secondary/3 blur-[80px] sm:blur-[120px] pointer-events-none" />
 
       <div className="mx-auto max-w-5xl relative">
         <motion.div
@@ -54,18 +54,18 @@ export function HowItWorks() {
             <Sparkles className="h-3 w-3" />
             ПРОСТО
           </div>
-          <h2 className="mb-3 text-2xl font-extrabold sm:text-4xl lg:text-5xl text-white">
+          <h2 className="mb-3 text-[1.625rem] leading-tight font-extrabold sm:text-4xl lg:text-5xl text-white">
             Как получить{" "}
             <span className="gradient-text">главную роль</span>
           </h2>
-          <p className="mx-auto mb-4 max-w-xl text-white/50">
+          <p className="mx-auto mb-4 max-w-xl text-sm sm:text-base text-white/50">
             3 шага — и ваш ребёнок станет героем книги, написанной только для него
           </p>
           <div className="section-divider mb-8 sm:mb-16" />
         </motion.div>
 
         <div className="relative">
-          {/* Animated connecting line (desktop) */}
+          {/* Animated connecting line (desktop only) */}
           <div className="absolute top-1/2 left-[16%] right-[16%] hidden lg:block">
             <motion.div
               className="h-[2px] bg-gradient-to-r from-primary/30 via-secondary/30 to-tertiary/30"
@@ -77,19 +77,31 @@ export function HowItWorks() {
             />
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-3">
+          {/* Vertical connecting line (mobile only) */}
+          <div className="absolute top-[60px] bottom-[60px] left-1/2 -translate-x-1/2 w-[2px] sm:hidden">
+            <motion.div
+              className="h-full bg-gradient-to-b from-primary/20 via-secondary/20 to-tertiary/20"
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+              style={{ transformOrigin: "top" }}
+            />
+          </div>
+
+          <div className="grid gap-4 sm:gap-6 sm:grid-cols-3">
             {STEPS.map((step, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ ...spring, delay: i * 0.15 }}
+                transition={{ ...spring, delay: i * 0.12 }}
                 whileHover={{ y: -8, scale: 1.02 }}
                 className="relative"
               >
                 <div
-                  className="relative overflow-hidden rounded-2xl glass-strong p-7 text-center transition-all duration-300 hover:border-white/15 group"
+                  className="relative overflow-hidden rounded-2xl glass-strong p-5 sm:p-7 text-center transition-all duration-300 hover:border-white/15 group"
                   style={{
                     boxShadow: `0 0 0 rgba(0,0,0,0), inset 0 1px 0 rgba(255,255,255,0.05)`,
                   }}
@@ -101,27 +113,27 @@ export function HowItWorks() {
                   />
 
                   {/* Step number */}
-                  <div className="absolute top-4 right-4">
-                    <span className={`text-5xl font-extrabold bg-gradient-to-b ${step.gradient} bg-clip-text text-transparent opacity-15`}>
+                  <div className="absolute top-3 right-3 sm:top-4 sm:right-4">
+                    <span className={`text-4xl sm:text-5xl font-extrabold bg-gradient-to-b ${step.gradient} bg-clip-text text-transparent opacity-15`}>
                       {i + 1}
                     </span>
                   </div>
 
-                  {/* Icon with glow ring */}
-                  <div className="relative mb-6 flex justify-center">
+                  {/* Icon - no ping animation on mobile */}
+                  <div className="relative mb-4 sm:mb-6 flex justify-center">
                     <motion.div
-                      className={`rounded-2xl p-4 ${step.iconBg} relative`}
+                      className={`rounded-2xl p-3.5 sm:p-4 ${step.iconBg} relative`}
                       whileHover={{ rotate: [0, -5, 5, 0] }}
                       transition={{ duration: 0.5 }}
                     >
-                      <step.icon className={`h-7 w-7 ${step.iconColor}`} />
-                      {/* Pulse ring */}
-                      <div className={`absolute inset-0 rounded-2xl ${step.iconBg} animate-ping opacity-20`} />
+                      <step.icon className={`h-6 w-6 sm:h-7 sm:w-7 ${step.iconColor}`} />
+                      {/* Pulse ring - hidden on mobile to save performance */}
+                      <div className={`absolute inset-0 rounded-2xl ${step.iconBg} animate-ping opacity-20 hidden sm:block`} />
                     </motion.div>
                   </div>
 
-                  <h3 className="relative mb-2 text-lg font-bold text-white">{step.title}</h3>
-                  <p className="relative text-sm leading-relaxed text-white/50">
+                  <h3 className="relative mb-1.5 sm:mb-2 text-base sm:text-lg font-bold text-white">{step.title}</h3>
+                  <p className="relative text-[13px] sm:text-sm leading-relaxed text-white/50">
                     {step.description}
                   </p>
                 </div>
